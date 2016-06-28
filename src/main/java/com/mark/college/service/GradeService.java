@@ -19,7 +19,7 @@ public class GradeService {
     private GradeRepository gradeRepository;
 
     public List<Grade> findGrades(Student student){
-        List<Grade> grades = gradeRepository.findByStudentId(student);
+        List<Grade> grades = gradeRepository.findByStudent(student);
 
         if(!grades.isEmpty())
             return grades;

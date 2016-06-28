@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Student</title>
+</head>
+<body>
+    <h2 th:text="${name}"/>
+    <h3 th:text="${id}"/>
+    <table>
+        <tr>
+            <td>Subject</td>
+            <td></td>
+            <td>Average</td>
+        </tr>
+        <tr th:each="grade : ${grades}">
+            <td th:text="${grade.subject}"/>
+            <td></td>
+            <td th:text="${grade.average}"/>
+        </tr>
+    </table>
+</body>
+</html>

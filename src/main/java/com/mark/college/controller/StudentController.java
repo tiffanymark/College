@@ -30,7 +30,7 @@ public class StudentController {
             return mvFindStudent;
         }
         ModelAndView mvError = new ModelAndView("error");
-        mvError.addObject("msg", "Try again!");
+        mvError.addObject("msg", "Student not found. Try again!");
         return mvError;
     }
 

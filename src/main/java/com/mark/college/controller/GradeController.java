@@ -32,17 +32,18 @@ public class GradeController {
         Student student = studentService.findStudent(id);
         List<Grade> grades = gradeService.findGrades(student);
 
-        if(!grades.isEmpty()){
+        if(student != null && !grades.isEmpty()) {
             ModelAndView mvFindGrades = new ModelAndView("findGrades");
-            mvFindGrades.addObject("name",student.getName());
-            mvFindGrades.addObject("id",student.getId());
-            mvFindGrades.addObject("grades",grades);
+            mvFindGrades.addObject("name", student.getName());
+            mvFindGrades.addObject("id", student.getId());
+            mvFindGrades.addObject("grades", grades);
             return mvFindGrades;
         }
 
         ModelAndView mvError = new ModelAndView("error");
-        mvError.addObject("msg", "Try again");
+        mvError.addObject("msg", "Student not found. Try again!");
         return mvError;
+
     }
 
 

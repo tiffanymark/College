@@ -16,4 +16,6 @@ public interface GradeRepository extends JpaRepository<Grade, Integer> {
     @Query(value = "SELECT g FROM Grade g WHERE g.student = :student")
     List<Grade> findByStudent(@Param("student") Student student);
 
+    Grade save(Grade grade);
+
 }

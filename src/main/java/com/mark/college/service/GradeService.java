@@ -25,4 +25,13 @@ public class GradeService {
             return grades;
         return null;
     }
+
+    public Boolean insertGrades(Grade grade){
+        Grade newGrade = gradeRepository.save(grade);
+
+        if(newGrade != null)
+            return true;
+
+        return false;
+    }
 }

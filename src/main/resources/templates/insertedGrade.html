@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Inserted!</title>
+</head>
+<body>
+    <h2>Inserted!</h2>
+    <table>
+        <tr>
+            <td><b>Student Name: </b></td>
+            <td th:text="${name}"/>
+        </tr>
+        <tr>
+            <td><b>Student ID: </b></td>
+            <td th:text="${id}"/>
+        </tr>
+        <tr>
+            <td><b>Subject: </b></td>
+            <td th:text="${subject}"/>
+        </tr>
+        <tr>
+            <td><b>Average: </b></td>
+            <td th:text="${average}"/>
+        </tr>
+    </table>
+</body>
+</html>

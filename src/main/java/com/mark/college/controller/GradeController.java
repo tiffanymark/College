@@ -52,7 +52,7 @@ public class GradeController {
         return new ModelAndView("insertGrade");
     }
 
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @RequestMapping(value = "/grade/inserted", method = RequestMethod.POST)
     public ModelAndView insert(@ModelAttribute Grade grade){
         int studentId = grade.getStudent().getId();
         Student findStudent = studentService.findStudent(studentId);

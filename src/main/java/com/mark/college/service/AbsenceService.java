@@ -26,4 +26,12 @@ public class AbsenceService {
         return null;
     }
 
+    public Boolean insertAbsences(Absence absence){
+        Absence newAbsence = absenceRepository.save(absence);
+
+        if(newAbsence != null)
+            return true;
+        return false;
+    }
+
 }

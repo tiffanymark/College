@@ -16,4 +16,5 @@ public interface AbsenceRepository extends JpaRepository<Absence, Integer> {
     @Query(value = "SELECT a FROM Absence a WHERE a.student = :student")
     List<Absence> findByStudent(@Param("student") Student student);
 
+    Absence save(Absence absence);
 }

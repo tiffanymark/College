@@ -17,8 +17,9 @@ public class Absence implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "subject")
-    private String subject;
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
@@ -51,11 +52,11 @@ public class Absence implements Serializable {
         this.student = student;
     }
 
-    public String getSubject() {
+    public Subject getSubject() {
         return subject;
     }
 
-    public void setSubject(String subject) {
+    public void setSubject(Subject subject) {
         this.subject = subject;
     }
 }

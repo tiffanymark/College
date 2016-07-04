@@ -9,12 +9,12 @@
     <h3 th:text="${id}"/>
     <table>
         <tr>
-            <td>Subject</td>
+            <td><b>Subject</b></td>
             <td></td>
-            <td>Average</td>
+            <td><b>Average</b></td>
         </tr>
         <tr th:each="grade : ${grades}">
-            <td th:text="${grade.subject}"/>
+            <td th:text="${grade.subject.name}"/>
             <td></td>
             <td th:text="${grade.average}"/>
         </tr>

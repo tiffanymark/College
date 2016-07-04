@@ -9,12 +9,12 @@
 <h3 th:text="${id}"/>
 <table>
     <tr>
-        <td>Subject</td>
+        <td><b>Subject</b></td>
         <td></td>
-        <td>Quantity</td>
+        <td><b>Quantity</b></td>
     </tr>
     <tr th:each="absence : ${absences}">
-        <td th:text="${absence.subject}"/>
+        <td th:text="${absence.subject.name}"/>
         <td></td>
         <td th:text="${absence.quantity}"/>
     </tr>

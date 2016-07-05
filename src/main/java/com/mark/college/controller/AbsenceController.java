@@ -36,6 +36,7 @@ public class AbsenceController {
             ModelAndView mvFindAbsences = new ModelAndView("findAbsences");
             mvFindAbsences.addObject("name",student.getName());
             mvFindAbsences.addObject("id", id);
+            mvFindAbsences.addObject("course", student.getCourse());
             mvFindAbsences.addObject("absences",absences);
             return mvFindAbsences;
         }
@@ -45,7 +46,7 @@ public class AbsenceController {
     }
 
     @RequestMapping(value = "/absence/insert", method = RequestMethod.GET)
-    public ModelAndView insertPAge(){
+    public ModelAndView insertPage(){
         return new ModelAndView("insertAbsence");
     }
 

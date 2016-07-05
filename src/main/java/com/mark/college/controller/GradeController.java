@@ -37,6 +37,7 @@ public class GradeController {
             ModelAndView mvFindGrades = new ModelAndView("findGrades");
             mvFindGrades.addObject("name", student.getName());
             mvFindGrades.addObject("id", student.getId());
+            mvFindGrades.addObject("course", student.getCourse());
             mvFindGrades.addObject("grades", grades);
             return mvFindGrades;
         }

@@ -1,6 +1,7 @@
 package com.mark.college.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -9,7 +10,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "subject")
-public class Subject {
+public class Subject implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +26,10 @@ public class Subject {
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private Set<Absence> absences;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     public int getId() {
         return id;
@@ -54,5 +61,13 @@ public class Subject {
 
     public void setGrades(Set<Grade> grades) {
         this.grades = grades;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

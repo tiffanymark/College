@@ -27,6 +27,10 @@ public class Student implements Serializable{
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Absence> absences;
 
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
     public int getId() {
         return id;
     }
@@ -57,5 +61,13 @@ public class Student implements Serializable{
 
     public void setAbsences(Set<Absence> absences) {
         this.absences = absences;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

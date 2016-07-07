@@ -5,7 +5,17 @@
     <title>Student</title>
 </head>
 <body>
-    Name: <div th:text="${name}"/>
-    Id: <div th:text="${id}"/>
+    <b>Name: </b> <div th:text="${student.name}"/><br/>
+
+    <b>Id: </b> <div th:text="${student.id}"/><br/>
+
+    <b>Course: </b> <div th:text="${student.course.name}"/><br/>
+
+    <b>Subjects: </b>
+    <table>
+        <tr th:each="ss : ${studentSubjects}">
+            <td th:text="${ss.subject.name}"/>
+        </tr>
+    </table>
 </body>
 </html>

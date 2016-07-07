@@ -21,15 +21,19 @@ public class Subject implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
+
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private Set<Grade> grades;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private Set<Absence> absences;
-
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private Set<StudentSubject> studentSubjects;
@@ -80,5 +84,13 @@ public class Subject implements Serializable {
 
     public void setStudentSubjects(Set<StudentSubject> studentSubjects) {
         this.studentSubjects = studentSubjects;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }

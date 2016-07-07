@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Teacher</title>
+</head>
+<body>
+<b>Name: </b> <div th:text="${teacher.name}"/><br/>
+
+<b>Id: </b> <div th:text="${teacher.id}"/><br/>
+
+<b>Subjects: </b>
+<table>
+    <tr th:each="subject : ${subjects}">
+        <td th:text="${subject.name}"/>
+    </tr>
+</table>
+</body>
+</html>

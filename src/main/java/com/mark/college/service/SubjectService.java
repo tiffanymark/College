@@ -27,4 +27,12 @@ public class SubjectService {
 
     }
 
+    public Subject find(int id){
+        Subject subject = subjectRepository.findById(id);
+
+        if(subject != null)
+            return subject;
+        return null;
+    }
+
 }

@@ -5,15 +5,30 @@
     <title>Teacher</title>
 </head>
 <body>
-<b>Name: </b> <div th:text="${teacher.name}"/><br/>
+    <b>Name: </b> <div th:text="${teacher.name}"/><br/>
 
-<b>Id: </b> <div th:text="${teacher.id}"/><br/>
+    <b>Id: </b> <div th:text="${teacher.id}"/><br/>
 
-<b>Subjects: </b>
-<table>
-    <tr th:each="subject : ${subjects}">
-        <td th:text="${subject.name}"/>
-    </tr>
-</table>
+    <b>Subjects: </b>
+
+    <section th:each="subject : ${subjects}">
+        <ul>
+            <li>
+                <a th:text="${subject.name}"
+                    th:href="@{/teacher/{id}/{subjectId}/students(id=${teacher.id},subjectId=${subject.id})}"/>
+            </li>
+        </ul>
+    </section>
+
+    <!--
+    <div th:each="subject : ${subjects}">
+        <span th:text="${subject.name}"/>
+        <div th:each="stud : ${ss}">
+            <span th:text="${stud.student.name}"/>
+        </div>
+    </div>
+    -->
+
+
 </body>
 </html>

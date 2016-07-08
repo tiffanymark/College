@@ -1,7 +1,9 @@
 package com.mark.college.controller;
 
+import com.mark.college.entity.StudentSubject;
 import com.mark.college.entity.Subject;
 import com.mark.college.entity.Teacher;
+import com.mark.college.service.StudentSubjectService;
 import com.mark.college.service.SubjectService;
 import com.mark.college.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +29,28 @@ public class TeacherController {
     @Autowired
     private SubjectService subjectService;
 
+    @Autowired
+    private StudentSubjectService studentSubjectService;
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView find(@PathVariable("id") int id){
         Teacher teacher = teacherService.findTeacher(id);
 
         List<Subject> subjects = subjectService.findSubjects(teacher);
-        
+
         if(teacher != null && !subjects.isEmpty()){
             ModelAndView mvFindTeacher = new ModelAndView("findTeacher");
-            mvFindTeacher.addObject("teacher", teacher);
+
             mvFindTeacher.addObject("subjects", subjects);
+            for (Subject subj: subjects) {
+                System.out.println(subj.getName()+": ");
+                List<StudentSubject> studentSubjects = studentSubjectService.findStudents(subj);
+                mvFindTeacher.addObject("ss", studentSubjects);
+                for (StudentSubject ss: studentSubjects) {
+                    System.out.println(ss.getStudent().getName());
+                }
+            }
+            mvFindTeacher.addObject("teacher", teacher);
             return mvFindTeacher;
         }
 

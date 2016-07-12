@@ -24,6 +24,9 @@ public class Teacher implements Serializable {
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private Set<Subject> subjects;
 
+    @Column(name = "password")
+    private String password;
+
     public int getId() {
         return id;
     }
@@ -46,5 +49,13 @@ public class Teacher implements Serializable {
 
     public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

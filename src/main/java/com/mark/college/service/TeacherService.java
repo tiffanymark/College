@@ -16,7 +16,6 @@ public class TeacherService {
     private TeacherRepository teacherRepository;
 
     public Teacher findTeacher(int id){
-
         Teacher teacher = teacherRepository.findById(id);
 
         if(teacher != null)
@@ -24,5 +23,12 @@ public class TeacherService {
         return null;
     }
 
+    public Teacher auth(int id, String password){
+        Teacher teacher = teacherRepository.findByIdAndPassword(id,password);
+
+        if(teacher != null)
+            return teacher;
+        return null;
+    }
 
 }

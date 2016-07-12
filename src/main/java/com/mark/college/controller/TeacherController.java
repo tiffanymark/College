@@ -1,6 +1,5 @@
 package com.mark.college.controller;
 
-import com.mark.college.entity.Student;
 import com.mark.college.entity.StudentSubject;
 import com.mark.college.entity.Subject;
 import com.mark.college.entity.Teacher;
@@ -9,12 +8,12 @@ import com.mark.college.service.SubjectService;
 import com.mark.college.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +21,6 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping(value = "/teacher")
 public class TeacherController {
 
     @Autowired
@@ -34,7 +32,7 @@ public class TeacherController {
     @Autowired
     private StudentSubjectService studentSubjectService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/teacher/{id}", method = RequestMethod.GET)
     public ModelAndView find(@PathVariable("id") int id){
         Teacher teacher = teacherService.findTeacher(id);
         List<Subject> subjects = subjectService.findSubjects(teacher);
@@ -50,7 +48,7 @@ public class TeacherController {
         return mvError;
     }
 
-    @RequestMapping(value = "/{id}/{subjectId}/students", method = RequestMethod.GET)
+    @RequestMapping(value = "teacher/{id}/{subjectId}/students", method = RequestMethod.GET)
     public ModelAndView findStudents(@PathVariable("id") int id, @PathVariable("subjectId") int subjectId){
         Teacher teacher = teacherService.findTeacher(id);
         Subject subject = subjectService.find(subjectId);
@@ -66,6 +64,23 @@ public class TeacherController {
         ModelAndView mvError = new ModelAndView("error");
         mvError.addObject("msg", "Students not found. Try again!");
         return mvError;
+    }
+
+    @RequestMapping(value = "/teacher/login", method = RequestMethod.GET)
+    public ModelAndView teacherLoginPage(){
+        return new ModelAndView("teacherLogin");
+    }
+
+    @RequestMapping(value = "/teacher/menu", method = RequestMethod.POST)
+    public ModelAndView teacherLogin(@ModelAttribute Teacher teacher){
+        Teacher teacherAuth = teacherService.auth(teacher.getId(),teacher.getPassword());
+
+        if(teacherAuth != null){
+            ModelAndView mvTeacherMenu = new ModelAndView("teacherMenu");
+            mvTeacherMenu.addObject("teacherObj", teacherAuth);
+            return mvTeacherMenu;
+        }
+        return new ModelAndView("teacherLogin");
     }
 
 }

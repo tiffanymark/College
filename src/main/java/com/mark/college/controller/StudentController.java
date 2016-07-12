@@ -43,12 +43,12 @@ public class StudentController {
         return mvError;
     }
 
-    @RequestMapping(value = "/student/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/student-login", method = RequestMethod.GET)
     public ModelAndView studentLoginPage(){
         return new ModelAndView("studentLogin");
     }
 
-    @RequestMapping(value = "/student/menu", method = RequestMethod.POST)
+    @RequestMapping(value = "/student-menu", method = RequestMethod.POST)
     public ModelAndView studentLogin(@ModelAttribute Student student){
         Student studentAuth = studentService.auth(student.getId(),student.getPassword());
 

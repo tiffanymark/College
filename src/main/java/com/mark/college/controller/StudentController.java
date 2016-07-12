@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping(value = "/student")
+@SessionAttributes("studentObj")
 public class StudentController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class StudentController {
     @Autowired
     private StudentSubjectService studentSubjectService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/{id}", method = RequestMethod.GET)
     public ModelAndView find(@PathVariable("id") int id){
 
         Student student = studentService.findStudent(id);
@@ -41,6 +41,24 @@ public class StudentController {
         ModelAndView mvError = new ModelAndView("error");
         mvError.addObject("msg", "Student not found. Try again!");
         return mvError;
+    }
+
+    @RequestMapping(value = "/student/login", method = RequestMethod.GET)
+    public ModelAndView studentLoginPage(){
+        return new ModelAndView("studentLogin");
+    }
+
+    @RequestMapping(value = "/student/menu", method = RequestMethod.POST)
+    public ModelAndView studentLogin(@ModelAttribute Student student){
+        Student studentAuth = studentService.auth(student.getId(),student.getPassword());
+
+        if(studentAuth != null) {
+            ModelAndView mvStudentMenu = new ModelAndView("studentMenu");
+            mvStudentMenu.addObject("studentObj", studentAuth);
+            return mvStudentMenu;
+        }
+        return new ModelAndView("studentLogin");
+
     }
 
 }

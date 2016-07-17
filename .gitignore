@@ -12,3 +12,5 @@ buildNumber.properties
 *.cmd
 *.iml
 mvnw
+images/
+style-*

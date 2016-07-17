@@ -6,10 +6,7 @@ import com.mark.college.service.GradeService;
 import com.mark.college.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,6 +17,7 @@ import java.util.List;
  */
 
 @Controller
+@SessionAttributes("studentObj")
 public class GradeController {
 
     @Autowired
@@ -28,16 +26,14 @@ public class GradeController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/grade/{studentId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/student-grade-{studentId}", method = RequestMethod.GET)
     public ModelAndView find(@PathVariable("studentId") int id){
-        Student student = studentService.findStudent(id);
-        List<Grade> grades = gradeService.findGrades(student);
+        Student studentObj = studentService.findStudent(id);
+        List<Grade> grades = gradeService.findGrades(studentObj);
 
-        if(student != null && !grades.isEmpty()) {
+        if(studentObj != null && !grades.isEmpty()) {
             ModelAndView mvFindGrades = new ModelAndView("findGrades");
-            mvFindGrades.addObject("name", student.getName());
-            mvFindGrades.addObject("id", student.getId());
-            mvFindGrades.addObject("course", student.getCourse());
+            mvFindGrades.addObject("studentObj", studentObj);
             mvFindGrades.addObject("grades", grades);
             return mvFindGrades;
         }

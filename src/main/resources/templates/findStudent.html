@@ -2,20 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Student</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
+    <link href="../static/css/default.css" th:href="@{/css/default.css}" rel="stylesheet" type="text/css" media="all" />
+    <link href="../static/css/fonts.css" th:href="@{/css/fonts.css}" rel="stylesheet" type="text/css" media="all" />
+
+    <title>Student | Access</title>
 </head>
 <body>
-    <b>Name: </b> <div th:text="${student.name}"/><br/>
+<div id="header-wrapper">
+    <div id="header" class="container">
+        <div id="logo">
+            <h1><i class="fa fa-graduation-cap"></i><a th:href="@{/home}">TM College</a></h1>
+            <div id="menu">
+                <ul>
+                    <li><a th:href="@{/grade/{studentId}(studentId=${studentObj.id})}">Grades</a></li>
+                    <li><a th:href="@{/absence/{studentId}(studentId=${studentObj.id})}">Absences</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <b>Id: </b> <div th:text="${student.id}"/><br/>
+<div class="wrapper">
+    <div class="container">
+        <div id="three-column" class="container">
+            <h1>Subjects</h1>
+            <table>
+                <tr th:each="ss : ${studentSubjects}">
+                    <td th:text="${ss.subject.name}"/>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
 
-    <b>Course: </b> <div th:text="${student.course.name}"/><br/>
+<div id="copyright" class="container">
+    <p>&copy; Tiffany Mark - 2016</p>
+</div>
 
-    <b>Subjects: </b>
-    <table>
-        <tr th:each="ss : ${studentSubjects}">
-            <td th:text="${ss.subject.name}"/>
-        </tr>
-    </table>
 </body>
 </html>

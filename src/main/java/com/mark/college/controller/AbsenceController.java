@@ -6,10 +6,7 @@ import com.mark.college.service.AbsenceService;
 import com.mark.college.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -19,6 +16,7 @@ import java.util.List;
  */
 
 @Controller
+@SessionAttributes("studentObj")
 public class AbsenceController {
 
     @Autowired
@@ -27,16 +25,14 @@ public class AbsenceController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/absence/{studentId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/student-absence-{studentId}", method = RequestMethod.GET)
     public ModelAndView find(@PathVariable("studentId") int id){
-        Student student = studentService.findStudent(id);
-        List<Absence> absences = absenceService.findAbsences(student);
+        Student studentObj = studentService.findStudent(id);
+        List<Absence> absences = absenceService.findAbsences(studentObj);
 
-        if(student != null && !absences.isEmpty()){
+        if(studentObj != null && !absences.isEmpty()){
             ModelAndView mvFindAbsences = new ModelAndView("findAbsences");
-            mvFindAbsences.addObject("name",student.getName());
-            mvFindAbsences.addObject("id", id);
-            mvFindAbsences.addObject("course", student.getCourse());
+            mvFindAbsences.addObject("studentObj", studentObj);
             mvFindAbsences.addObject("absences",absences);
             return mvFindAbsences;
         }

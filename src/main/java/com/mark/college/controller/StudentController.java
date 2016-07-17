@@ -48,17 +48,22 @@ public class StudentController {
         return new ModelAndView("studentLogin");
     }
 
-    @RequestMapping(value = "/student-menu", method = RequestMethod.POST)
+    @RequestMapping(value = "/student", method = RequestMethod.POST)
     public ModelAndView studentLogin(@ModelAttribute Student student){
         Student studentAuth = studentService.auth(student.getId(),student.getPassword());
 
         if(studentAuth != null) {
-            ModelAndView mvStudentMenu = new ModelAndView("studentMenu");
+            ModelAndView mvStudentMenu = new ModelAndView("studentHomepage");
             mvStudentMenu.addObject("studentObj", studentAuth);
             return mvStudentMenu;
         }
         return new ModelAndView("studentLogin");
 
+    }
+
+    @RequestMapping(value = "/student-homepage", method = RequestMethod.GET)
+    public ModelAndView studentHomepage(){
+        return new ModelAndView("studentHomepage");
     }
 
 }

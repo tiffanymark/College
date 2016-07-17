@@ -1,24 +1,69 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Student | Absences</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Student - Absences</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <script src="../static/js/skel.min.js" th:src="@{/js/skel.min.js}"></script>
+    <script src="../static/js/skel-layers.min.js" th:src="@{/js/skel-layers.min.js}"></script>
+    <script src="../static/js/init.js" th:src="@{/js/init.js}"></script>
+    <noscript>
+        <link rel="stylesheet" href="../static/css/skel.css" th:href="@{/css/skel.css}"/>
+        <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+        <link rel="stylesheet" href="../static/css/style-xlarge.css" th:href="@{/css/style-xlarge.css}"/>
+    </noscript>
 </head>
+
 <body>
-    <h2 th:text="${name}"/>
-    <h3 th:text="${id}"/>
-    <h3 th:text="${course.name}"/>
-<table>
-    <tr>
-        <td><b>Subject</b></td>
-        <td></td>
-        <td><b>Quantity</b></td>
-    </tr>
-    <tr th:each="absence : ${absences}">
-        <td th:text="${absence.subject.name}"/>
-        <td></td>
-        <td th:text="${absence.quantity}"/>
-    </tr>
-</table>
+    <!-- Header -->
+    <header id="header">
+        <h1><a href="#">TM College</a></h1>
+        <nav id="nav">
+            <ul>
+                <li><a th:href="@{/student-homepage}">Homepage</a></li>
+                <li><a th:href="@{/student-grade-{studentId}(studentId=${studentObj.id})}">Grades</a></li>
+                <li><a th:href="@{/student-absence-{studentId}(studentId=${studentObj.id})}">Absences</a></li>
+                <li><a th:href="@{/home}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- Main -->
+    <section id="main" class="wrapper">
+        <div class="container">
+            <header class="major">
+                <h2>Absences</h2>
+            </header>
+            <table>
+                <tr>
+                    <td><b>Subject</b></td>
+                    <td></td>
+                    <td><b>Quantity</b></td>
+                </tr>
+                <tr th:each="absence : ${absences}">
+                    <td th:text="${absence.subject.name}"/>
+                    <td></td>
+                    <td th:text="${absence.quantity}"/>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div>
+                    <ul class="copyright">
+                        <li>&copy; Tiffany Mark - 2016</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>

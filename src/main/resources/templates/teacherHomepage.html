@@ -18,14 +18,13 @@
 </head>
 
 <body>
-
 <!-- Header -->
 <header id="header">
-    <h1><a th:href="@{/home}">TM College</a></h1>
+    <h1><a href="#">TM College</a></h1>
     <nav id="nav">
         <ul>
-            <li><a th:href="@{/student-login}">Student Access</a></li>
-            <li><a th:href="@{/teacher-login}">Teacher Access</a></li>
+            <li><a th:href="@{/teacher-homepage}">Homepage</a></li>
+            <li><a th:href="@{/home}">Logout</a></li>
         </ul>
     </nav>
 </header>
@@ -35,14 +34,9 @@
     <div class="container">
 
         <header class="major">
-            <h2>Teacher Login</h2>
+            <h2><span th:text="${teacherObj.name}"/> - <span th:text="${teacherObj.id}"/></h2>
         </header>
-        <form action="/teacher" method="POST" class="login">
-            ID: <input type="text" name="id" required=""/><br/><br/>
-            Password: <input type="password" name="password" required=""/><br/><br/>
-            <br/>
-            <input class="button enter button-small" type="submit" name="enter" value="Enter"/>
-        </form>
+
     </div>
 </section>
 

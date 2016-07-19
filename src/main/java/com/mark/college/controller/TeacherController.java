@@ -66,21 +66,26 @@ public class TeacherController {
         return mvError;
     }
 
-    @RequestMapping(value = "/teacher/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/teacher-login", method = RequestMethod.GET)
     public ModelAndView teacherLoginPage(){
         return new ModelAndView("teacherLogin");
     }
 
-    @RequestMapping(value = "/teacher/menu", method = RequestMethod.POST)
+    @RequestMapping(value = "/teacher", method = RequestMethod.POST)
     public ModelAndView teacherLogin(@ModelAttribute Teacher teacher){
         Teacher teacherAuth = teacherService.auth(teacher.getId(),teacher.getPassword());
 
         if(teacherAuth != null){
-            ModelAndView mvTeacherMenu = new ModelAndView("teacherMenu");
+            ModelAndView mvTeacherMenu = new ModelAndView("teacherHomepage");
             mvTeacherMenu.addObject("teacherObj", teacherAuth);
             return mvTeacherMenu;
         }
         return new ModelAndView("teacherLogin");
+    }
+
+    @RequestMapping(value = "/teacher-homepage", method = RequestMethod.GET)
+    public ModelAndView teacherHomepage(){
+        return new ModelAndView("teacherHomepage");
     }
 
 }

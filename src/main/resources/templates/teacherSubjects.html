@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Teacher | Access</title>
+    <title>Teacher | Subjects</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -35,8 +35,12 @@
     <div class="container">
 
         <header class="major">
-            <h2><span th:text="${teacherObj.name}"/> - <span th:text="${teacherObj.id}"/></h2>
+            <h2>Subjects</h2>
         </header>
+
+        <ul>
+            <li th:each="subj : ${subjects}" th:text="${subj.name}"></li>
+        </ul>
 
     </div>
 </section>

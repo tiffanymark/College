@@ -88,4 +88,20 @@ public class TeacherController {
         return new ModelAndView("teacherHomepage");
     }
 
+    @RequestMapping(value = "/teacher-{id}-subjects", method = RequestMethod.GET)
+    public ModelAndView teacherSubjects(@PathVariable("id") int id){
+        Teacher teacher = teacherService.findTeacher(id);
+        List<Subject> subjects = subjectService.findSubjects(teacher);
+
+        if(!subjects.isEmpty()){
+            ModelAndView mvTeacherSubjects = new ModelAndView("teacherSubjects");
+            mvTeacherSubjects.addObject("teacherObj", teacher);
+            mvTeacherSubjects.addObject("subjects", subjects);
+            return mvTeacherSubjects;
+        }
+
+        ModelAndView mvNoSubjects = new ModelAndView("teacherHomepage");
+        return mvNoSubjects;
+    }
+
 }

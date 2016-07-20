@@ -26,13 +26,13 @@ public class GradeController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/student-grade-{studentId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/student-{studentId}-grades", method = RequestMethod.GET)
     public ModelAndView find(@PathVariable("studentId") int id){
         Student studentObj = studentService.findStudent(id);
         List<Grade> grades = gradeService.findGrades(studentObj);
 
         if(studentObj != null && !grades.isEmpty()) {
-            ModelAndView mvFindGrades = new ModelAndView("findGrades");
+            ModelAndView mvFindGrades = new ModelAndView("studentGrades");
             mvFindGrades.addObject("studentObj", studentObj);
             mvFindGrades.addObject("grades", grades);
             return mvFindGrades;

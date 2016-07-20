@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Student | Access</title>
+    <title>Student | Homepage</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -24,8 +24,8 @@
         <nav id="nav">
             <ul>
                 <li><a th:href="@{/student-homepage}">Homepage</a></li>
-                <li><a th:href="@{/student-grade-{studentId}(studentId=${studentObj.id})}">Grades</a></li>
-                <li><a th:href="@{/student-absence-{studentId}(studentId=${studentObj.id})}">Absences</a></li>
+                <li><a th:href="@{/student-{studentId}-grades(studentId=${studentObj.id})}">Grades</a></li>
+                <li><a th:href="@{/student-{studentId}-absences(studentId=${studentObj.id})}">Absences</a></li>
                 <li><a th:href="@{/home}">Logout</a></li>
             </ul>
         </nav>

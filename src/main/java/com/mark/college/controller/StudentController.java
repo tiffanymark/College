@@ -1,7 +1,11 @@
 package com.mark.college.controller;
 
+import com.mark.college.entity.Absence;
+import com.mark.college.entity.Grade;
 import com.mark.college.entity.Student;
 import com.mark.college.entity.StudentSubject;
+import com.mark.college.service.AbsenceService;
+import com.mark.college.service.GradeService;
 import com.mark.college.service.StudentService;
 import com.mark.college.service.StudentSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,25 +27,15 @@ public class StudentController {
     private StudentService studentService;
 
     @Autowired
+    private GradeService gradeService;
+
+    @Autowired
+    private AbsenceService absenceService;
+
+    /*
+    @Autowired
     private StudentSubjectService studentSubjectService;
-
-    @RequestMapping(value = "/student/{id}", method = RequestMethod.GET)
-    public ModelAndView find(@PathVariable("id") int id){
-
-        Student student = studentService.findStudent(id);
-
-        List<StudentSubject> studentSubjects = studentSubjectService.findSubjects(student);
-
-        if(student != null && !studentSubjects.isEmpty()){
-            ModelAndView mvFindStudent = new ModelAndView("findStudent");
-            mvFindStudent.addObject("student", student);
-            mvFindStudent.addObject("studentSubjects", studentSubjects);
-            return mvFindStudent;
-        }
-        ModelAndView mvError = new ModelAndView("error");
-        mvError.addObject("msg", "Student not found. Try again!");
-        return mvError;
-    }
+    */
 
     @RequestMapping(value = "/student-login", method = RequestMethod.GET)
     public ModelAndView studentLoginPage(){
@@ -65,5 +59,55 @@ public class StudentController {
     public ModelAndView studentHomepage(){
         return new ModelAndView("studentHomepage");
     }
+
+    @RequestMapping(value = "/student-{studentId}-grades", method = RequestMethod.GET)
+    public ModelAndView findGrades(@PathVariable("studentId") int id){
+        Student studentObj = studentService.findStudent(id);
+        List<Grade> grades = gradeService.findGrades(studentObj);
+
+        if(studentObj != null && !grades.isEmpty()) {
+            ModelAndView mvFindGrades = new ModelAndView("studentGrades");
+            mvFindGrades.addObject("grades", grades);
+            return mvFindGrades;
+        }
+
+        return new ModelAndView("studentHomepage");
+
+    }
+
+    @RequestMapping(value = "/student-{studentId}-absences", method = RequestMethod.GET)
+    public ModelAndView findAbsences(@PathVariable("studentId") int id){
+        Student studentObj = studentService.findStudent(id);
+        List<Absence> absences = absenceService.findAbsences(studentObj);
+
+        if(studentObj != null && !absences.isEmpty()){
+            ModelAndView mvFindAbsences = new ModelAndView("studentAbsences");
+            mvFindAbsences.addObject("absences",absences);
+            return mvFindAbsences;
+        }
+
+        return new ModelAndView("studentHomepage");
+    }
+
+    /*
+    @RequestMapping(value = "/student/{id}", method = RequestMethod.GET)
+    public ModelAndView find(@PathVariable("id") int id){
+
+        Student student = studentService.findStudent(id);
+
+        List<StudentSubject> studentSubjects = studentSubjectService.findSubjects(student);
+
+        if(student != null && !studentSubjects.isEmpty()){
+            ModelAndView mvFindStudent = new ModelAndView("findStudent");
+            mvFindStudent.addObject("student", student);
+            mvFindStudent.addObject("studentSubjects", studentSubjects);
+            return mvFindStudent;
+        }
+        ModelAndView mvError = new ModelAndView("error");
+        mvError.addObject("msg", "Student not found. Try again!");
+        return mvError;
+    }
+
+    */
 
 }

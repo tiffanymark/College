@@ -25,22 +25,6 @@ public class AbsenceController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/student-{studentId}-absences", method = RequestMethod.GET)
-    public ModelAndView find(@PathVariable("studentId") int id){
-        Student studentObj = studentService.findStudent(id);
-        List<Absence> absences = absenceService.findAbsences(studentObj);
-
-        if(studentObj != null && !absences.isEmpty()){
-            ModelAndView mvFindAbsences = new ModelAndView("studentAbsences");
-            mvFindAbsences.addObject("studentObj", studentObj);
-            mvFindAbsences.addObject("absences",absences);
-            return mvFindAbsences;
-        }
-        ModelAndView mvError = new ModelAndView("error");
-        mvError.addObject("msg","Student not found. Try again!");
-        return mvError;
-    }
-
     @RequestMapping(value = "/absence/insert", method = RequestMethod.GET)
     public ModelAndView insertPage(){
         return new ModelAndView("insertAbsence");

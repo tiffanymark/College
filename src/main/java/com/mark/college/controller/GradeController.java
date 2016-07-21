@@ -26,24 +26,6 @@ public class GradeController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/student-{studentId}-grades", method = RequestMethod.GET)
-    public ModelAndView find(@PathVariable("studentId") int id){
-        Student studentObj = studentService.findStudent(id);
-        List<Grade> grades = gradeService.findGrades(studentObj);
-
-        if(studentObj != null && !grades.isEmpty()) {
-            ModelAndView mvFindGrades = new ModelAndView("studentGrades");
-            mvFindGrades.addObject("studentObj", studentObj);
-            mvFindGrades.addObject("grades", grades);
-            return mvFindGrades;
-        }
-
-        ModelAndView mvError = new ModelAndView("error");
-        mvError.addObject("msg", "Student not found. Try again!");
-        return mvError;
-
-    }
-
     @RequestMapping(value = "/grade/insert", method = RequestMethod.GET)
     public ModelAndView insertPage(){
         return new ModelAndView("insertGrade");

@@ -30,40 +30,6 @@ public class TeacherController {
     @Autowired
     private StudentSubjectService studentSubjectService;
 
-    @RequestMapping(value = "/teacher/{id}", method = RequestMethod.GET)
-    public ModelAndView find(@PathVariable("id") int id){
-        Teacher teacher = teacherService.findTeacher(id);
-        List<Subject> subjects = subjectService.findSubjects(teacher);
-
-        if(teacher != null && !subjects.isEmpty()){
-            ModelAndView mvFindTeacher = new ModelAndView("findTeacher");
-            mvFindTeacher.addObject("subjects", subjects);
-            mvFindTeacher.addObject("teacher", teacher);
-            return mvFindTeacher;
-        }
-        ModelAndView mvError = new ModelAndView("error");
-        mvError.addObject("msg", "Teacher not found. Try again!");
-        return mvError;
-    }
-
-    @RequestMapping(value = "teacher/{id}/{subjectId}/students", method = RequestMethod.GET)
-    public ModelAndView findStudents(@PathVariable("id") int id, @PathVariable("subjectId") int subjectId){
-        Teacher teacher = teacherService.findTeacher(id);
-        Subject subject = subjectService.find(subjectId);
-        List<StudentSubject> studentSubjects = studentSubjectService.findStudents(subject);
-
-        if(teacher != null && subject != null && !studentSubjects.isEmpty()){
-            ModelAndView mvFindStudents = new ModelAndView("findStudentsBySubject");
-            mvFindStudents.addObject("teacher", teacher);
-            mvFindStudents.addObject("subject", subject);
-            mvFindStudents.addObject("ss", studentSubjects);
-            return mvFindStudents;
-        }
-        ModelAndView mvError = new ModelAndView("error");
-        mvError.addObject("msg", "Students not found. Try again!");
-        return mvError;
-    }
-
     @RequestMapping(value = "/teacher-login", method = RequestMethod.GET)
     public ModelAndView teacherLoginPage(){
         return new ModelAndView("teacherLogin");
@@ -93,7 +59,6 @@ public class TeacherController {
 
         if(!subjects.isEmpty()){
             ModelAndView mvTeacherSubjects = new ModelAndView("teacherSubjects");
-            mvTeacherSubjects.addObject("teacherObj", teacher);
             mvTeacherSubjects.addObject("subjects", subjects);
             return mvTeacherSubjects;
         }
@@ -101,5 +66,40 @@ public class TeacherController {
         ModelAndView mvNoSubjects = new ModelAndView("teacherHomepage");
         return mvNoSubjects;
     }
+
+    @RequestMapping(value = "teacher-{id}-subject-{subjectId}", method = RequestMethod.GET)
+    public ModelAndView findStudents(@PathVariable("id") int id, @PathVariable("subjectId") int subjectId){
+        Teacher teacher = teacherService.findTeacher(id);
+        Subject subject = subjectService.find(subjectId);
+        List<StudentSubject> studentSubjects = studentSubjectService.findStudents(subject);
+
+        if(teacher != null && subject != null && !studentSubjects.isEmpty()){
+            ModelAndView mvFindStudents = new ModelAndView("teacherStudents");
+            mvFindStudents.addObject("subject", subject);
+            mvFindStudents.addObject("ss", studentSubjects);
+            return mvFindStudents;
+        }
+        ModelAndView mvError = new ModelAndView("error");
+        mvError.addObject("msg", "Students not found. Try again!");
+        return mvError;
+    }
+
+    /*
+    @RequestMapping(value = "/teacher/{id}", method = RequestMethod.GET)
+    public ModelAndView find(@PathVariable("id") int id){
+        Teacher teacher = teacherService.findTeacher(id);
+        List<Subject> subjects = subjectService.findSubjects(teacher);
+
+        if(teacher != null && !subjects.isEmpty()){
+            ModelAndView mvFindTeacher = new ModelAndView("findTeacher");
+            mvFindTeacher.addObject("subjects", subjects);
+            mvFindTeacher.addObject("teacher", teacher);
+            return mvFindTeacher;
+        }
+        ModelAndView mvError = new ModelAndView("error");
+        mvError.addObject("msg", "Teacher not found. Try again!");
+        return mvError;
+    }
+    */
 
 }

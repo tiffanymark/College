@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Teacher | Subjects</title>
+    <title>Teacher | List of Students</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -33,15 +33,12 @@
 <!-- Main -->
 <section id="main" class="wrapper">
     <div class="container">
-
         <header class="major">
-            <h2>Subjects</h2>
+            <h2><span th:text="${subject.name}"></span></h2>
         </header>
 
         <ul>
-            <li th:each="subj : ${subjects}">
-                <i><a th:href="@{/teacher-{id}-subject-{subjectId}(subjectId=${subj.id},id=${teacherObj.id})}" th:text="${subj.name}"></a></i>
-            </li>
+            <li th:each="stud : ${ss}" th:text="${stud.student.name}"></li>
         </ul>
 
     </div>

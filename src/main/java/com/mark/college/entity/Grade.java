@@ -28,6 +28,16 @@ public class Grade implements Serializable {
     @Column(name = "average")
     private double average;
 
+    public Grade(){
+
+    }
+
+    public Grade(Subject subject, Student student, double average){
+        this.subject = subject;
+        this.student = student;
+        this.average = average;
+    }
+
     public int getId() {
         return id;
     }

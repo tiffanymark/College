@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Teacher | Absences Lists</title>
+    <title>Teacher | Grades Lists</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -34,31 +35,16 @@
 <!-- Main -->
 <section id="main" class="wrapper">
     <div class="container">
-        <header class="major">
-            <h2>Absences List</h2>
-            <h3 th:text="${subject.name}"></h3>
-        </header>
-        <form action="/teacher-absences-list-subject-inserted" method="POST">
-            <input type="hidden" name="subjectId" th:value="${subject.id}" />
-            <table>
-                <tr>
-                    <td>ID</td>
-                    <td>Name</td>
-                    <td>Total</td>
-                    <td>Absent</td>
-                </tr>
-                <tr th:each="abs : ${absences}">
-                    <td th:text="${abs.student.id}"></td>
-                    <td th:text="${abs.student.name}"></td>
-                    <td th:text="${abs.quantity}"></td>
-                    <td><input type="checkbox" name="absence" th:value="${abs.student.id}" /></td>
-                </tr>
-            </table>
 
-            <br/>
-            <input type="hidden" name="teacherId" th:value="${teacherObj.id}"/>
-            <input class="button sub button-small" type="submit" name="submit" value="Submit" />
-        </form>
+        <header class="major">
+            <h2>Subjects</h2>
+        </header>
+
+        <ul>
+            <li th:each="subj : ${subjects}">
+                <i><a th:href="@{/teacher-{id}-grades-list-subject-{subjectId}(subjectId=${subj.id},id=${teacherObj.id})}" th:text="${subj.name}"></a></i>
+            </li>
+        </ul>
 
     </div>
 </section>

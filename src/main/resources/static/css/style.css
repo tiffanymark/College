@@ -255,6 +255,11 @@
 			box-shadow: 0 0 0 1px #383b43;
 		}
 
+		input[type="text"].average {
+			height: 2em;
+			width: 27%;
+		}
+
 	.select-wrapper {
 		text-decoration: none;
 		display: block;
@@ -729,12 +734,26 @@
 		white-space: nowrap;
 	}
 
-	input[type="submit"],
-	input[type="reset"],
-	input[type="button"],
-	.button.enter {
-		margin: 0em 0em 0em 12em;
-	}
+		input[type="submit"],
+		input[type="reset"],
+		input[type="button"],
+		.button.enter {
+			margin: 0em 0em 0em 12em;
+		}
+
+		input[type="submit"],
+		input[type="reset"],
+		input[type="button"],
+		.button.sub {
+			margin: 0em 0em 0em 37em;
+		}
+
+		input[type="submit"],
+		input[type="reset"],
+		input[type="button"],
+		.button.subMsgHome {
+			margin: 0em 0em 0em 0em;
+		}
 
 		input[type="submit"]:hover,
 		input[type="reset"]:hover,

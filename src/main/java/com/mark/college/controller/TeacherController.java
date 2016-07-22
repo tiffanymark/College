@@ -34,6 +34,9 @@ public class TeacherController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private GradeService gradeService;
+
 
     @RequestMapping(value = "/teacher-login", method = RequestMethod.GET)
     public ModelAndView teacherLoginPage(){
@@ -158,6 +161,84 @@ public class TeacherController {
 
         return absencesListPage(teacherId, subjectId);
     }
+
+    @RequestMapping(value = "/teacher-{id}-grades-list", method = RequestMethod.GET)
+    public ModelAndView allGrdListsPage(@PathVariable("id") int id){
+        Teacher teacher = teacherService.findTeacher(id);
+        List<Subject> subjects = subjectService.findSubjects(teacher);
+
+        ModelAndView mvTeacherAllAbsLists = new ModelAndView("teacherAllGrdLists");
+        mvTeacherAllAbsLists.addObject("subjects", subjects);
+        return mvTeacherAllAbsLists;
+
+    }
+
+    @RequestMapping(value = "/teacher-{id}-grades-list-subject-{subjectId}", method = RequestMethod.GET)
+    public ModelAndView gradesListPage(@PathVariable("id") int id, @PathVariable("subjectId") int subjectId){
+        Teacher teacher = teacherService.findTeacher(id);
+        Subject subject = subjectService.find(subjectId);
+        List<StudentSubject> studentSubjects = studentSubjectService.findStudents(subject);
+        List<Student> students = new ArrayList<>();
+        List<Grade> grades = new ArrayList<>();
+
+        for (StudentSubject ss : studentSubjects){
+            students.add(ss.getStudent());
+        }
+
+        for (Student student : students){
+            Grade grade = gradeService.findGrade(subject,student);
+
+            if(grade != null){
+                grades.add(grade);
+            }
+            else{
+                Grade grade2 = new Grade(subject,student,0.0);
+                grades.add(grade2);
+            }
+        }
+
+        ModelAndView mvGradesListPage = new ModelAndView("teacherGradesList");
+        mvGradesListPage.addObject("teacherObj", teacher);
+        mvGradesListPage.addObject("subject",subject);
+        mvGradesListPage.addObject("grades", grades);
+
+        return mvGradesListPage;
+    }
+
+    @RequestMapping(value = "/teacher-grades-list-subject-inserted", method = RequestMethod.POST)
+    public ModelAndView insert(HttpServletRequest request){
+        int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+        Subject subject = subjectService.find(subjectId);
+
+        String[] students = request.getParameterValues("studentId");
+
+        String[] averages = request.getParameterValues("average");
+        for (int j = 0; j < averages.length; j++) {
+            if(!averages[j].isEmpty()){
+                double average = Double.parseDouble(averages[j]);
+
+                String stud = students[j];
+                int studentId = Integer.parseInt(stud);
+                Student student = studentService.findStudent(studentId);
+
+                Grade grade = gradeService.findGrade(subject, student);
+
+                if(grade != null){
+                    grade.setAverage(average);
+                    gradeService.insertGrades(grade);
+                }
+                else{
+                    Grade grade2 = new Grade(subject, student, average);
+                    gradeService.insertGrades(grade2);
+                }
+            }
+        }
+
+        int teacherId = Integer.parseInt(request.getParameter("teacherId"));
+
+        return gradesListPage(teacherId,subjectId);
+    }
+
 
     /*
     @RequestMapping(value = "/teacher/{id}", method = RequestMethod.GET)

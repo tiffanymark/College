@@ -36,7 +36,7 @@ public class AbsenceService {
     }
 
     public Absence findAbsence(Subject subject, Student student){
-        Absence absence = absenceRepository.findByStudentAndSubject(subject, student);
+        Absence absence = absenceRepository.findBySubjectAndStudent(subject, student);
 
         if(absence != null)
             return absence;

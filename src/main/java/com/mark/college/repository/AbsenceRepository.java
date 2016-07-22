@@ -20,6 +20,6 @@ public interface AbsenceRepository extends JpaRepository<Absence, Integer> {
     Absence save(Absence absence);
 
     @Query(value = "SELECT a FROM Absence a WHERE a.subject = :subject AND a.student = :student")
-    Absence findByStudentAndSubject(@Param("subject") Subject subject, @Param("student") Student student);
+    Absence findBySubjectAndStudent(@Param("subject") Subject subject, @Param("student") Student student);
 
 }

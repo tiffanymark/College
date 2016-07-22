@@ -106,7 +106,7 @@ public class TeacherController {
         Subject subject = subjectService.find(subjectId);
         List<StudentSubject> studentSubjects = studentSubjectService.findStudents(subject);
         List<Student> students = new ArrayList<>();
-        List<Integer> absences = new ArrayList<>();
+        List<Absence> absences = new ArrayList<>();
 
         for (StudentSubject ss : studentSubjects) {
             students.add(ss.getStudent());
@@ -115,10 +115,11 @@ public class TeacherController {
         for (Student student : students) {
             Absence absence = absenceService.findAbsence(subject, student);
             if(absence != null){
-                absences.add(absence.getQuantity());
+                absences.add(absence);
             }
             else{
-                absences.add(0);
+                Absence absence2 = new Absence(subject, student, 0);
+                absences.add(absence2);
             }
         }
 
@@ -126,7 +127,6 @@ public class TeacherController {
         ModelAndView mvAbsenceListPage = new ModelAndView("teacherAbsencesList");
         mvAbsenceListPage.addObject("teacherObj", teacher);
         mvAbsenceListPage.addObject("subject", subject);
-        mvAbsenceListPage.addObject("ss", studentSubjects);
         mvAbsenceListPage.addObject("absences", absences);
         return mvAbsenceListPage;
     }
@@ -155,32 +155,8 @@ public class TeacherController {
             }
         }
         int teacherId = Integer.parseInt(request.getParameter("teacherId"));
-        Teacher teacher = teacherService.findTeacher(teacherId);
 
-        List<StudentSubject> studentSubjects = studentSubjectService.findStudents(subject);
-        List<Student> students = new ArrayList<>();
-        List<Integer> absencesList = new ArrayList<>();
-
-        for (StudentSubject ss : studentSubjects) {
-            students.add(ss.getStudent());
-        }
-
-        for (Student student : students) {
-            Absence absence = absenceService.findAbsence(subject, student);
-            if(absence != null){
-                absencesList.add(absence.getQuantity());
-            }
-            else{
-                absencesList.add(0);
-            }
-        }
-
-        ModelAndView mvAbsenceListPage = new ModelAndView("teacherAbsencesList");
-        mvAbsenceListPage.addObject("teacherObj", teacher);
-        mvAbsenceListPage.addObject("subject", subject);
-        mvAbsenceListPage.addObject("ss", studentSubjects);
-        mvAbsenceListPage.addObject("absences", absencesList);
-        return mvAbsenceListPage;
+        return absencesListPage(teacherId, subjectId);
     }
 
     /*

@@ -34,7 +34,7 @@
 <section id="main" class="wrapper">
     <div class="container">
         <header class="major">
-            <h2>Subjects</h2>
+            <h2>Absences List</h2>
         </header>
         <form action="/teacher-absences-list-subject-inserted" method="POST">
             <input type="hidden" name="subjectId" th:value="${subject.id}" />
@@ -42,22 +42,17 @@
                 <tr>
                     <td>ID</td>
                     <td>Name</td>
-                    <td>Absence</td>
-                </tr>
-                <tr th:each="s : ${ss}">
-                    <td th:text="${s.student.id}"></td>
-                    <td th:text="${s.student.name}"></td>
-                    <td><input type="checkbox" name="absence" th:value="${s.student.id}" /></td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td>Quantity</td>
+                    <td>Total</td>
+                    <td>Absent</td>
                 </tr>
                 <tr th:each="abs : ${absences}">
-                    <td th:text="${abs}"></td>
+                    <td th:text="${abs.student.id}"></td>
+                    <td th:text="${abs.student.name}"></td>
+                    <td th:text="${abs.quantity}"></td>
+                    <td><input type="checkbox" name="absence" th:value="${abs.student.id}" /></td>
                 </tr>
             </table>
+
             <br/>
             <input type="hidden" name="teacherId" th:value="${teacherObj.id}"/>
             <input type="submit" name="submit" value="Submit" />

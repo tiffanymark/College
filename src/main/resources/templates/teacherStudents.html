@@ -25,6 +25,7 @@
         <ul>
             <li><a th:href="@{/teacher-homepage}">Homepage</a></li>
             <li><a th:href="@{/teacher-{id}-subjects(id=${teacherObj.id})}">Subjects</a></li>
+            <li><a th:href="@{/teacher-{id}-absences-list(id=${teacherObj.id})}">Absences List</a></li>
             <li><a th:href="@{/home}">Logout</a></li>
         </ul>
     </nav>

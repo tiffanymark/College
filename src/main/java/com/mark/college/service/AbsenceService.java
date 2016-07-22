@@ -2,6 +2,7 @@ package com.mark.college.service;
 
 import com.mark.college.entity.Absence;
 import com.mark.college.entity.Student;
+import com.mark.college.entity.Subject;
 import com.mark.college.repository.AbsenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,14 @@ public class AbsenceService {
         if(newAbsence != null)
             return true;
         return false;
+    }
+
+    public Absence findAbsence(Subject subject, Student student){
+        Absence absence = absenceRepository.findByStudentAndSubject(subject, student);
+
+        if(absence != null)
+            return absence;
+        return null;
     }
 
 }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Teacher | Subjects</title>
+    <title>Teacher | Absences Lists</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -41,7 +41,7 @@
 
         <ul>
             <li th:each="subj : ${subjects}">
-                <i><a th:href="@{/teacher-{id}-subject-{subjectId}(subjectId=${subj.id},id=${teacherObj.id})}" th:text="${subj.name}"></a></i>
+                <i><a th:href="@{/teacher-{id}-absences-list-subject-{subjectId}(subjectId=${subj.id},id=${teacherObj.id})}" th:text="${subj.name}"></a></i>
             </li>
         </ul>
 

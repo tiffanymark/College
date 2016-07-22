@@ -28,6 +28,16 @@ public class Absence implements Serializable {
     @Column(name = "quantity")
     private int quantity;
 
+    public Absence(){
+
+    }
+
+    public Absence(Subject subject, Student student, int quantity){
+        this.subject = subject;
+        this.student = student;
+        this.quantity = quantity;
+    }
+
     public int getId() {
         return id;
     }

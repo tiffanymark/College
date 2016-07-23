@@ -35,6 +35,9 @@ public class Notification implements Serializable {
     @Column(name = "message")
     private String message;
 
+    @Column(name = "checked")
+    private Boolean checked;
+
     public Notification(){
 
     }
@@ -93,5 +96,13 @@ public class Notification implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
     }
 }

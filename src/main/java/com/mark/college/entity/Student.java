@@ -37,6 +37,9 @@ public class Student implements Serializable{
     @Column(name = "password")
     private String password;
 
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<Notification> notifications;
+
     public int getId() {
         return id;
     }
@@ -91,5 +94,13 @@ public class Student implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<Notification> notifications) {
+        this.notifications = notifications;
     }
 }

@@ -38,6 +38,9 @@ public class Subject implements Serializable {
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private Set<StudentSubject> studentSubjects;
 
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
+    private Set<Notification> notifications;
+
     public int getId() {
         return id;
     }
@@ -92,5 +95,13 @@ public class Subject implements Serializable {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    public Set<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<Notification> notifications) {
+        this.notifications = notifications;
     }
 }
